@@ -90,9 +90,9 @@ let add_beside f1 f2 =
      in
      let first_line_width_new =
        if f1.height == 1 
-       then f1.first_line_width 
-       else f1.first_line_width +
-              f2.first_line_width
+       then f1.first_line_width +
+              f2.first_line_width 
+       else f1.first_line_width
      in
      {
        height           = f1.height + f2.height - 1;
@@ -124,7 +124,7 @@ let add_fill f1 f2 shift =
        | x, 1 when x >  2 -> f1.middle_width 
        | x, 2 when x >  2 ->
           max f1.middle_width
-              (shift + f2.first_line_width)
+              (f1.last_line_width + f2.first_line_width)
        | _ -> list_max [f1.middle_width;
                         f1.last_line_width +
                           f2.first_line_width;
@@ -133,9 +133,9 @@ let add_fill f1 f2 shift =
      in
      let first_line_width_new =
        if f1.height == 1 
-       then f1.first_line_width 
-       else f1.first_line_width +
-              f2.first_line_width
+       then f1.first_line_width +
+              f2.first_line_width 
+       else f1.first_line_width
      in
      let last_line_width_new =
        if f2.height == 1 
@@ -174,3 +174,7 @@ let indent shift f = {
     to_text          =
       fun s t -> (sp shift) ^ (f.to_text (shift + s) t)
   }
+                       
+let ( >|< ) a b = add_beside a b
+let ( >-< ) a b = add_above  a b
+let ( >/< ) a b = add_fill   a b
