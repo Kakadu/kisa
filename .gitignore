@@ -1,0 +1,16 @@
+*~
+_build
+*.native
+*.byte
+*.docdir
+
+setup.data
+setup.log
+
+*.cmo
+*.cmi
+*.cmx
+*.cma
+*.o
+*.a
+*.annot
