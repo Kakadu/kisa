@@ -1,4 +1,3 @@
-(* ocamlc str.cma *)
 open Str
 
 type t = {
