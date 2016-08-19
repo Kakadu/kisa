@@ -34,10 +34,9 @@ let filteri filterf lst =
         (n + 1, if filterf n then cons a lst else lst))
       (0, []) lst in
   result
-             
-let cross_general op width fl1 fl2 =
-  let cross_lst = flatten (map (add_general op width fl1) fl2) in
-  let flags = Array.make (length cross_lst) true in
+
+let factorize lst =
+  let flags = Array.make (length lst) true in
   iteri
     (fun i1 f1 ->
       if flags.(i1)
@@ -48,10 +47,15 @@ let cross_general op width fl1 fl2 =
                     | x when x < 0 -> flags.(i2) <- false
                     | x when x > 0 -> flags.(i1) <- false
                     | _ -> ()
-             ) cross_lst
-    ) cross_lst;
-  filteri (fun i -> flags.(i)) cross_lst
-
+             ) lst
+    ) lst;
+  filteri (fun i -> flags.(i)) lst
+ 
+             
+let cross_general op width fl1 fl2 =
+  let cross_lst = flatten (map (add_general op width fl1) fl2) in
+  factorize cross_lst
+  
 type t = {
     width : int;           (* maximal width  *)
     lst   : Format.t list;
@@ -59,7 +63,7 @@ type t = {
 
 let (>>) shift fs =
   { width = fs.width;
-    lst   = filter_map (fun f -> total_width f <= width - shift)
+    lst   = filter_map (fun f -> total_width f <= fs.width - shift)
                        (indent shift)
                        fs.lst
   } 
@@ -76,6 +80,18 @@ let (>/<) fs1 fs2 shift =
   { width = fs1.width;
     lst   = cross_general (fun fs f -> add_fill fs f shift)
                           fs1.width fs1.lst fs2.lst;
+  }
+
+(* Choice operation *)
+let (>?<) fs1 fs2 =
+  { width = max fs1.width fs2.width;
+    lst   = factorize (fs1.lst @ fs2.lst);
+  }
+
+let default_width = ref 100
+let (!) s =
+  { width = !default_width;
+    lst   = [of_string s];
   }
 
 let pick_best t =

@@ -1,4 +1,4 @@
-TESTS = test001 testFormatSet
+TESTS = test001 testFormatList
 
 TESTS_ENVIRONMENT = $(srcdir)/test.sh
 
