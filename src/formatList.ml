@@ -7,10 +7,19 @@ let map_filter (mapf : 'a -> 'b) (filterf : 'b -> bool) (l : 'a list) : 'b list 
   fold_left
     (fun lst a -> let b = mapf a in
                   if filterf b
-                  then [b] @ lst
+                  then cons b lst
                   else lst
     )
     [] l
+
+let filter_map (filterf : 'a -> bool) (mapf : 'a -> 'b) (l : 'a list) : 'b list =
+  fold_left
+    (fun lst a -> if filterf a
+                  then cons (mapf a) lst
+                  else lst
+    )
+    [] l
+
 
 let add_general op width fl f =
   (* Potentially we want to add factorization here. *)
@@ -47,6 +56,13 @@ type t = {
     width : int;           (* maximal width  *)
     lst   : Format.t list;
 }
+
+let (>>) shift fs =
+  { width = fs.width;
+    lst   = filter_map (fun f -> total_width f <= width - shift)
+                       (indent shift)
+                       fs.lst
+  } 
 
 let (>|<) fs1 fs2 =
   { width = fs1.width;
