@@ -1,5 +1,5 @@
 # type in sources here
-SOURCES = format.ml formatSet.ml
+SOURCES = format.ml formatSet.ml formatList.ml
 MLI =
 
 include $(top_srcdir)/m4/Makefile.am.vars

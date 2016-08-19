@@ -7,6 +7,19 @@ type t = {
     last_line_width  : int;
     to_text          : int -> string -> string
   }
+
+
+let is_less_than f1 f2 =
+  f1.first_line_width <= f2.first_line_width &&
+  f1.middle_width     <= f2.middle_width     &&
+  f1.last_line_width  <= f2.last_line_width  &&
+  f1.height           <= f2.height
+
+let compare f1 f2 =
+  match is_less_than f1 f2, is_less_than f2 f1 with
+  | true, _ -> -1 
+  | _, true ->  1 
+  | _       ->  0
            
 let empty = {
     height           = 0;

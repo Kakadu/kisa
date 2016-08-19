@@ -24,7 +24,7 @@ type t = {
 let replace_if_smaller tbl key value =
   try
     let old_value = Hashtbl.find tbl key in
-    if value < old_value
+    if is_less_than value old_value
     then Hashtbl.replace tbl key value
   with Not_found -> ()
 
