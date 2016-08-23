@@ -7,8 +7,7 @@ module Expr =
            | Cons of int
            | Binop of char * t * t
 
-    let rec to_format_list t =
-      match t with
+    let rec to_format_list = function
       | Var  s -> !s
       | Cons n -> !(string_of_int n)
       | Binop (c, t1, t2) ->
@@ -28,10 +27,9 @@ module Stmt =
            | If     of Expr.t * t * t
            | While  of Expr.t * t
 
-    let rec to_format_list t =
-      match t with
-      | Read    s    -> !"read("  >|< !s >|< ")" 
-      | Write   e    -> !"write(" >|< (Expr.to_format_list e) >|< ")" 
+    let rec to_format_list = function
+      | Read    s    -> !"read("  >|< !s >|< !")" 
+      | Write   e    -> !"write(" >|< (Expr.to_format_list e) >|< !")" 
       | Assign (s,e) -> !s >|< !" := " >|< (Expr.to_format_list e) 
       | Seq  (s1,s2) ->
          let f1 = to_format_list s1 in
@@ -50,8 +48,7 @@ module Stmt =
                              
 exception Not_Operation 
 
-let op s =
-  match s with
+let op = function
   | '+' -> (+)
   | '-' -> (-)
   | '*' -> ( * )

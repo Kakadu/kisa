@@ -93,6 +93,11 @@ let (!) s =
   { width = !default_width;
     lst   = [of_string s];
   }
+    
+let (^) fs n =
+  { width = fs.width;
+    lst   = filter (fun f -> f.height < n) fs.lst;
+  }
 
 let pick_best t =
   try

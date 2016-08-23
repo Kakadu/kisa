@@ -41,9 +41,8 @@ let line nt = {
                 
 let sp n = String.make n ' '
                        
-let list_max l =
-  match l with
-    [] ->
+let list_max = function
+  | [] ->
     failwith "Empty list as argument of list_max."
   | hd :: tl ->
      List.fold_left max hd tl
@@ -165,7 +164,7 @@ let add_fill f1 f2 shift =
          f1.to_text s (f2.to_text (shift + s) t)
      }
        
-let to_string f = f.to_text 0 ""
+let to_string   f = f.to_text 0 ""
 let total_width f = list_max [f.first_line_width;
                               f.middle_width;
                               f.last_line_width
