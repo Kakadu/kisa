@@ -93,6 +93,8 @@ let (!) s =
   { width = !default_width;
     lst   = [of_string s];
   }
+
+let initial = !""
     
 let (^) fs n =
   { width = fs.width;
@@ -109,3 +111,6 @@ let pick_best t =
       (hd t.lst) (tl t.lst)
   with Failure "hd" ->
     raise Not_found
+
+let to_string t =
+  Format.to_string (pick_best t)
