@@ -1,2 +1,4 @@
 * kisa
 A pretty-printing library written in OCaml.
+
+An example printer for While language can be found in ~src/while.ml~.

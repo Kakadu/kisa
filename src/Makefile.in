@@ -293,7 +293,7 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 
 # type in sources here
-SOURCES = format.ml formatSet.ml formatList.ml
+SOURCES = format.ml formatSet.ml formatList.ml while.ml
 MLI = 
 
 # define macros that creates directiries
