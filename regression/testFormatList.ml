@@ -81,8 +81,22 @@ let term01 =
                      Assign ("k"  , expr02);]);
        Write (Var "res")]
 
+let testStmt n term =
+  default_width := n;
+  Printf.printf "%s\n\n" @@
+    to_string (Stmt.to_format_list term)
+
+let testExpr n term =
+  default_width := n;
+  Printf.printf "%s\n\n" @@
+    to_string (Expr.to_format_list term)
+
 let _ =
-  default_width := 25;
-  let res = to_string (Stmt.to_format_list term01) in
-  Printf.printf "%s\n" res
+  testStmt 20 term01;
+  testStmt 25 term01;
+  testStmt 50 term01;
+  try 
+    testStmt 15 term01
+  with Failure s ->
+    Printf.printf "Ok\n\n"
 

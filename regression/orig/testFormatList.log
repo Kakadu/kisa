@@ -1,0 +1,21 @@
+read(n);
+read(k); res := 1;
+while k > 0
+do res := res * n;
+   k := k - 1
+od; write(res)
+
+read(n);
+read(k); res := 1;
+while k > 0
+do res := res * n;
+   k := k - 1
+od; write(res)
+
+read(n); read(k);
+res := 1; while k > 0
+          do res := res * n; k := k - 1
+          od; write(res)
+
+Ok
+
