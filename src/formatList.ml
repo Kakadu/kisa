@@ -42,7 +42,7 @@ let factorize lst =
       if flags.(i1)
       then iteri
              (fun i2 f2 ->
-               if flags.(i2)
+               if (i1 < i2) && flags.(i2)
                then match compare f1 f2 with
                     | x when x < 0 -> flags.(i2) <- false
                     | x when x > 0 -> flags.(i1) <- false
@@ -68,14 +68,43 @@ let (>>) shift fs =
                        fs.lst
   } 
 
+let default_width = ref 100
+
+(* It's important not to reorder this function
+   definition and the definition of (!) operator.
+ *)
+let initial =
+  { width = !default_width;
+    lst   = [empty];
+  }
+
+let blank_line =
+  { width = !default_width;
+    lst   = [line ""];
+  }
+ 
+let (!) s =
+  { width = !default_width;
+    lst   = [of_string s];
+  }
+   
+let (^) fs n =
+  { width = fs.width;
+    lst   = filter (fun f -> f.height < n) fs.lst;
+  }
+
 let (>|<) fs1 fs2 =
   { width = fs1.width;
     lst   = cross_general add_beside fs1.width fs1.lst fs2.lst;
   }
+let (>||<) fs1 fs2 = fs1 >|< !" " >|< fs2
+
 let (>-<) fs1 fs2 =
   { width = fs1.width;
     lst   = cross_general add_above fs1.width fs1.lst fs2.lst;
   }
+let (>--<) fs1 fs2 = fs1 >-< blank_line >-< fs2
+
 let (>/<) fs1 fs2 shift =
   { width = fs1.width;
     lst   = cross_general (fun fs f -> add_fill fs f shift)
@@ -88,29 +117,17 @@ let (>?<) fs1 fs2 =
     lst   = factorize (fs1.lst @ fs2.lst);
   }
 
-let default_width = ref 100
-let (!) s =
-  { width = !default_width;
-    lst   = [of_string s];
-  }
-
-let initial = !""
-    
-let (^) fs n =
-  { width = fs.width;
-    lst   = filter (fun f -> f.height < n) fs.lst;
-  }
 
 let pick_best t =
   try
     fold_left
-      (fun f best ->
+      (fun best f ->
         if f.height < best.height
         then f
         else best)
       (hd t.lst) (tl t.lst)
-  with Failure "hd" ->
-    raise Not_found
+  with Failure s ->
+    failwith "Empty set of strings to choose from."
 
 let to_string t =
   Format.to_string (pick_best t)
