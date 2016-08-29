@@ -2,30 +2,57 @@
 A pretty-printing combinator library written in OCaml. \\
 It's an implementation of the [[http://link.springer.com/chapter/10.1007%2F978-3-662-46823-4_21][paper]]. There are also [[https://github.com/anlun/polynomialPPCombinators/][Haskell]] and [[https://github.com/prettyPrinting/format][Kotlin]] implementations.
 
-** Usage example
+** Tutorial
+   The basic element of formatting in the library is ~Format.t~, which represents a block of
+   text:
+#+BEGIN_EXAMPLE
+*-------*
+|       |
+|   *---*
+*---|
+#+END_EXAMPLE
+
+*** Usage example
    The full code of the example can be found in ~src/while.ml~.
 
-   Suppose we have two types describing expressions, ~Expr.t~, and statements, ~Stmt.t~:
-
+   Suppose we want to implement a pretty printer for the following type:
 #+BEGIN_SRC ocaml
 module Expr =
   struct
     type t = Var   of string
            | Cons  of int
            | Binop of string * t * t
- end
-
-module Stmt =
-  struct
-    type t = Read   of string
-           | Write  of Expr.t
-           | Assign of string * Expr.t
-           | Seq    of t list 
-           | If     of Expr.t * t * t
-           | While  of Expr.t * t
   end
 #+END_SRC
-   Let's write a pretty-printer, a function ~Stmt -> string~, for them.
+   To do that we need to implement a function ~to_format_list : Expr.t -> FormatList.t~, where
+   ~FormatList.t~ is an internal datatype, which represents a set of possible 
+
+   Let's write a pretty-printer for them. First, we need to define a function ~to_format_list~ for the types,
+   which converts 
+
+   ~Stmt -> FormatList.t~, where ~FormatList.t~
+   is an internal .
+
+   First, to export pretty-printer combinators we need to open the ~FormatList~ module.
+   Now let's write a simple printer for the ~Expr.t~ type:
+   
+#+BEGIN_SRC ocaml
+module Expr =
+  struct
+    ...
+
+    let rec to_format_list = function
+      | Var  s -> !s
+      | Cons n -> !(string_of_int n)
+      | Binop (c, t1, t2) ->
+         let f1  = (to_format_list t1) in
+         let f2  = (to_format_list t2) in
+         f1 >||< !c >||< f2
+  end
+#+END_SRC
+   
+   The ~(!)~ operator allows to convert ~string~ to ~FormatList.t~, which represents
+   the set of possible representations.
 
 # ** How to use library
 #    The basic element
