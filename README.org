@@ -1,4 +1,5 @@
 * kisa
-A pretty-printing library written in OCaml.
+A pretty-printing combinator library written in OCaml. \\
+It's an implementation of the [[http://link.springer.com/chapter/10.1007%2F978-3-662-46823-4_21][paper]]. There are also [[https://github.com/anlun/polynomialPPCombinators/][Haskell]] and [[https://github.com/prettyPrinting/format][Kotlin]] implementations.
 
 An example printer for While language can be found in ~src/while.ml~.
