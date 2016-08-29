@@ -5,12 +5,64 @@ It's an implementation of the [[http://link.springer.com/chapter/10.1007%2F978-3
 ** Tutorial
    The basic element of formatting in the library is ~Format.t~, which represents a block of
    text:
+<table>
+  <tr>
+    <td>
+#+BEGIN_EXAMPLE
+*-------------*
+|             |
+|    A        |
+|             |
+|      *------*
+|      |
+*------*
+#+END_EXAMPLE
+    </td>
+    <td>
+#+BEGIN_EXAMPLE
+*-------------*
+|             |
+|    B        |
+|             |
+|      *------*
+|      |
+*------*
+#+END_EXAMPLE
+    </td>
+    <td>
+#+BEGIN_EXAMPLE
+*-------------*
+|             |
+|    C        |
+|             |
+|      *------*
+|      |
+*------*
+#+END_EXAMPLE
+    </td>
+  </tr>
+</table>
+
+   It can be indented:
+ #+BEGIN_EXAMPLE
+*---*-------------*
+|   |             |
+|   |   A         |
+|   |             |
+|   |      *------*
+|   |      |
+*---*------*
+#+END_EXAMPLE
+   Composed 
+
+
 #+BEGIN_EXAMPLE
 *-------*
 |       |
 |   *---*
 *---|
 #+END_EXAMPLE
+
 
 *** Usage example
    The full code of the example can be found in ~src/while.ml~.
