@@ -2,4 +2,33 @@
 A pretty-printing combinator library written in OCaml. \\
 It's an implementation of the [[http://link.springer.com/chapter/10.1007%2F978-3-662-46823-4_21][paper]]. There are also [[https://github.com/anlun/polynomialPPCombinators/][Haskell]] and [[https://github.com/prettyPrinting/format][Kotlin]] implementations.
 
-An example printer for While language can be found in ~src/while.ml~.
+** Usage example
+   The full code of the example can be found in ~src/while.ml~.
+
+   Suppose we have two types describing expressions, ~Expr.t~, and statements, ~Stmt.t~:
+
+#+BEGIN_SRC ocaml
+module Expr =
+  struct
+    type t = Var   of string
+           | Cons  of int
+           | Binop of string * t * t
+ end
+
+module Stmt =
+  struct
+    type t = Read   of string
+           | Write  of Expr.t
+           | Assign of string * Expr.t
+           | Seq    of t list 
+           | If     of Expr.t * t * t
+           | While  of Expr.t * t
+  end
+#+END_SRC
+   Let's write a pretty-printer, a function ~Stmt -> string~, for them.
+
+# ** How to use library
+#    The basic element
+
+# The central element of the library is the box (represented by ~Format.t~, see ~src/format.ml~).
+# It's a text 
