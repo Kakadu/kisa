@@ -5,9 +5,13 @@ It's an implementation of the [[http://link.springer.com/chapter/10.1007%2F978-3
 ** Tutorial
    The basic element of formatting in the library is ~Format.t~, which represents a block of
    text:
+
+#+BEGIN_HTML
 <table>
   <tr>
     <td>
+#+END_HTML
+
 #+BEGIN_EXAMPLE
 *-------------*
 |             |
@@ -17,8 +21,12 @@ It's an implementation of the [[http://link.springer.com/chapter/10.1007%2F978-3
 |      |
 *------*
 #+END_EXAMPLE
+
+#+BEGIN_HTML
     </td>
     <td>
+#+END_HTML
+
 #+BEGIN_EXAMPLE
 *-------------*
 |             |
@@ -28,8 +36,12 @@ It's an implementation of the [[http://link.springer.com/chapter/10.1007%2F978-3
 |      |
 *------*
 #+END_EXAMPLE
+
+#+BEGIN_HTML
     </td>
     <td>
+#+END_HTML
+
 #+BEGIN_EXAMPLE
 *-------------*
 |             |
@@ -39,9 +51,12 @@ It's an implementation of the [[http://link.springer.com/chapter/10.1007%2F978-3
 |      |
 *------*
 #+END_EXAMPLE
+   
+#+BEGIN_HTML
     </td>
   </tr>
 </table>
+#+END_HTML
 
    It can be indented:
  #+BEGIN_EXAMPLE
