@@ -28,13 +28,12 @@ It's an implementation of the [[http://link.springer.com/chapter/10.1007%2F978-3
 #+END_HTML
 
 #+BEGIN_EXAMPLE
-*-------------*
-|             |
-|    B        |
-|             |
-|      *------*
-|      |
-*------*
+*-----------*
+|           |
+|  B        |
+|    *------*
+|    |
+*----*
 #+END_EXAMPLE
 
 #+BEGIN_HTML
@@ -43,11 +42,11 @@ It's an implementation of the [[http://link.springer.com/chapter/10.1007%2F978-3
 #+END_HTML
 
 #+BEGIN_EXAMPLE
-*-------------*
-|             |
-|    C        |
-|             |
-|      *------*
+*------*
+|      *----*
+|           |
+|    C      |
+|      *----*
 |      |
 *------*
 #+END_EXAMPLE
@@ -68,16 +67,54 @@ It's an implementation of the [[http://link.springer.com/chapter/10.1007%2F978-3
 |   |      |
 *---*------*
 #+END_EXAMPLE
-   Composed 
-
-
+   Composed vertically: 
 #+BEGIN_EXAMPLE
-*-------*
-|       |
-|   *---*
-*---|
+*-------------*
+|             |
+|    A        |
+|             |
+|      *------*
+|      |
+*------*
+*-----------*
+|           |
+|  B        |
+|    *------*
+|    |
+*----*
 #+END_EXAMPLE
 
+   Horizontally: 
+#+BEGIN_EXAMPLE
+*-------------*
+|             |
+|    A        |
+|             |
+|      *------*
+|      | *-----------*
+*------* |           |
+         |  B        |
+         |    *------*
+         |    |
+         *----*
+#+END_EXAMPLE
+
+   Horizontally with a shift:
+#+BEGIN_EXAMPLE
+*-------------*
+|             |
+|    A        |
+|             |
+|      *------*
+|      | 
+*------* *------*
+   |      *----*
+   |           |
+   |    C      |
+   |      *----*
+   |      |
+   *------*
+#+END_EXAMPLE
 
 *** Usage example
    The full code of the example can be found in ~src/while.ml~.
