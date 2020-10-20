@@ -1,0 +1,16 @@
+(env
+ (_
+  (flags
+   (-strict-sequence -short-paths -strict-formats -short-paths -keep-locs -w
+     -3-9-32-33-27))))
+
+(library
+ (name kisa)
+ (public_name kisa)
+ (libraries str)
+ (modules format formatList formatSet))
+
+(library
+ (name while)
+ (modules while)
+ (libraries kisa))

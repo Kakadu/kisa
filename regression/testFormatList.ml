@@ -1,11 +1,11 @@
-open Printf
+open Kisa
 open FormatList
 open While
 open While.Stmt
 open While.Expr
 
 let expr00 = Var  "n"
-let expr03 = Cons 1 
+let expr03 = Cons 1
 let expr01 = Binop ("*", Var "res", Var  "n")
 let expr02 = Binop ("-", Var "k"  , Cons  1 )
 
@@ -32,7 +32,7 @@ let _ =
   testStmt 20 term01;
   testStmt 25 term01;
   testStmt 50 term01;
-  try 
+  try
     testStmt 15 term01
-  with Failure s ->
+  with Failure _s ->
     Printf.printf "Ok\n\n"

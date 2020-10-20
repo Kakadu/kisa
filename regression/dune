@@ -1,0 +1,9 @@
+(executable
+ (name test001)
+ (modules test001)
+ (libraries kisa))
+
+(executable
+ (name testFormatList)
+ (modules testFormatList)
+ (libraries kisa while))

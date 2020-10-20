@@ -1,5 +1,6 @@
-open Format
+open Kisa.Format
 open Printf
+
 
 let print_format f =
   printf "%s\n" (to_string f);
@@ -9,7 +10,7 @@ let print_format f =
          f.middle_width
          f.last_line_width
 
-let ab = of_string "a\nb" 
+let ab = of_string "a\nb"
 let ab_above  = ab >-< ab
 let ab_beside = ab >|< ab
 

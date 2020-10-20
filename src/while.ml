@@ -1,3 +1,4 @@
+open Kisa
 open FormatList
 open Printf
 
@@ -22,14 +23,14 @@ module Stmt =
     type t = Read   of string
            | Write  of Expr.t
            | Assign of string * Expr.t
-           | Seq    of t list 
+           | Seq    of t list
            | If     of Expr.t * t * t
            | While  of Expr.t * t
 
     let rec to_format_list = function
-      | Read    s    -> !"read("  >|< !s >|< !")" 
-      | Write   e    -> !"write(" >|< (Expr.to_format_list e) >|< !")" 
-      | Assign (s,e) -> !s >||< !":=" >||< (Expr.to_format_list e) 
+      | Read    s    -> !"read("  >|< !s >|< !")"
+      | Write   e    -> !"write(" >|< (Expr.to_format_list e) >|< !")"
+      | Assign (s,e) -> !s >||< !":=" >||< (Expr.to_format_list e)
       | Seq     []   -> initial
       | Seq (hd::tl) ->
          List.fold_left (fun fs s ->
@@ -53,8 +54,8 @@ module Stmt =
             !"do"  >||< bodyf >-<
             !"od")
   end
-                             
-exception Not_Operation 
+
+exception Not_Operation
 
 let op = function
   | '+' -> (+)
@@ -63,3 +64,8 @@ let op = function
   | '/' -> (/)
   | '%' -> (mod)
   | _   -> raise Not_Operation
+
+
+let () =
+  let open Stmt in
+  to_format_list (While (Expr.(Binop (">", Var "x", Cons 1 )), Read "x")) |> FormatList.to_string |> print_endline
